@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace P2FixAnAppDotNetCode.Models
@@ -9,7 +10,7 @@ namespace P2FixAnAppDotNetCode.Models
     public class Cart : ICart
     {
         private readonly List<CartLine> _cartLines = [];
-        
+
         /// <summary>
         /// Read-only property for display only
         /// </summary>
@@ -29,7 +30,20 @@ namespace P2FixAnAppDotNetCode.Models
         /// </summary>//
         public void AddItem(Product product, int quantity)
         {
-            // TODO implement the method
+            ArgumentOutOfRangeException.ThrowIfNegativeOrZero(quantity);
+
+            var existingCartLine = _cartLines.SingleOrDefault(line => line.Product.Id == product.Id);
+
+            if (existingCartLine == null)
+            {
+                var newCartLine = new CartLine { OrderLineId = product.Id, Quantity = quantity, Product = product };
+                
+                _cartLines.Add(newCartLine);
+            }
+            else
+            {
+                existingCartLine.Quantity += quantity;
+            }
         }
 
         /// <summary>
