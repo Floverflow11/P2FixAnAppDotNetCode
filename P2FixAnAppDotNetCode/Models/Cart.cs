@@ -8,6 +8,8 @@ namespace P2FixAnAppDotNetCode.Models
     /// </summary>
     public class Cart : ICart
     {
+        private readonly List<CartLine> _cartLines = [];
+        
         /// <summary>
         /// Read-only property for display only
         /// </summary>
@@ -19,7 +21,7 @@ namespace P2FixAnAppDotNetCode.Models
         /// <returns></returns>
         private List<CartLine> GetCartLineList()
         {
-            return new List<CartLine>();
+            return _cartLines;
         }
 
         /// <summary>
