@@ -22,11 +22,13 @@ namespace P2FixAnAppDotNetCode.Models.Services
         /// </summary>
         public string SetCulture(string language)
         {
-            return language.ToLowerInvariant() switch
+            var languageLower = language.ToLowerInvariant();
+            
+            return languageLower switch
             {
-                "french" => "fr",
-                "spanish" => "es",
-                _ => "en"
+                "french" => "fr-FR",
+                "spanish" => "es-ES",
+                _ => "en-GB"
             };
         }
 
